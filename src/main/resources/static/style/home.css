@@ -1,0 +1,42 @@
+@charset "UTF-8";
+.navbar-nav{
+ margin-left: 208px;
+}
+.dropdown-menu>li>a{
+	color: #0f4aef;
+}
+.navbar-default .navbar-nav>li>a{
+	color: #0f4aef;
+}
+.navbar-default .navbar-brand{
+	color: #0f4aef;
+}
+.main {
+	margin-left: 20px;
+    margin-right: 20px;
+}
+.navbar-default{
+	margin-bottom: 4px;
+}
+ 
+.xxfbfjsc{
+    float: right;
+    height: 30px;
+    margin-top: 3px;
+}
+.control-label{
+	color: #0f4af0;
+}
+.gzjlcx {
+	margin-top: 5px;
+}
+ .maintable  tr td:nth-child(2n-1) {
+    color:#0f4af0;
+     padding: 8px; 
+}
+.savedisplay {
+   display: none;
+}
+ 
+
+

@@ -1,0 +1,311 @@
+<div th:fragment="hyjl">
+  <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label for="hybmmccx" class=" control-label">部门:</label>
+		    <input   name="hybmmccx" id="hybmmccx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getDepart',
+						method:'post',
+						valueField:'d_name',
+						textField:'d_name',
+					    editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="部门名称:" style="width:100%">	 
+		   <label for="hyxmmccx"   class=" control-label">项目名称:</label>
+		   <input name="hyxmmccx" id="hyxmmccx"  class="easyui-combobox"  
+                      data-options="
+					url:'/ENOS/gzjl/getXm',
+					method:'post',
+					valueField:'xm_name',
+					textField:'xm_name',
+					editable:false,
+					panelHeight:'200' ,async:false " 
+                      label="项目名称:" style="width:100%">
+            <label for="hyjlrxmcx" class=" control-label">记录人员:</label>
+		    <input   name="hyjlrxmcx"  id="hyjlrxmcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="记录人员:" style="width:100%">          
+			<label for="hycyrycx" class=" control-label">参与人员:</label>
+		    <input   name="hycyrycx"  id="hycyrycx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="参与人员:" style="width:100%">	 
+			<label for="hyytcx" class="  control-label">会议议题:</label>
+<!-- 			<input name="hyytcx" id="hyytcx" class="easyui-textbox  " data-options="prompt:'请输入会议议题：'"     style="height:100px"> -->
+		    <input name="hyytcx" id="hyytcx" class="easyui-textbox"  data-options="prompt:'请输入会议议题：'"   style="width:100%">
+			<label for="hyrqcx" class="  control-label">会议日期:</label>
+            <input name="hyrqcx" id="hyrqcx" class="easyui-datebox"   data-options=" editable:false, prompt:'请选择 日期'" style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxhyjl" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary hyjlcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="hyjl" title="会议记录" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#hyjltoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="hj_id" style="display:none;" width="50"></th>
+                <th field="hyly" width="200">会议留言</th>
+                <th field="hyrq" width="100">会议日期</th>
+                <th field="hyyt" width="200">会议议题</th>
+                <th field="hynr" width="500">会议内容</th>
+                <th field="hyjlun" width="200">会议结论</th>
+                <th field="hycyry" width="300">参与人员</th>
+                <th field="hyjlrxm" width="100">记录人姓名</th>
+                <th field="hylyrxm" width="100">留言人姓名</th>
+                <th field="hyxmmc" width="300">项目名称</th>
+                <th field="hybmmc" width="100">部门名称</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+ 
+    <div id="hyjltoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newhyjl()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edithyjl()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#hyjl','hyjlrxm','hj_id','/ENOS/hyjl/delete?','/ENOS/hyjl/find?')">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#hyjl','#savelyhyjl','#hyjllydlg','#hyjllyfm','查看会议记录')" >查看</a>
+        <shiro:hasPermission name="all">　　
+           <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="lyhyjl()">留言 </a>
+                     　</shiro:hasPermission>
+    </div>
+    
+    <div id="hyjldlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="hyjlfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>记录人姓名:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="hyjlrxm" name="hyjlrxm" readonly="" class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="记录人姓名:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>项目名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="hyxmmc" name="hyxmmc"  class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/gzjl/getXm',
+							method:'post',
+							valueField:'xm_name',
+							textField:'xm_name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="项目名称:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>部门名称:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                    <input   name="hybmmc"  class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getDepart',
+							method:'post',
+							valueField:'d_name',
+							textField:'d_name',
+						    editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="部门名称:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>参与人员:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input   name="hycyry"  id="hycyry"  class="easyui-combobox"   required="true"
+			                        data-options="
+									url:'/ENOS/wdtx/getUserName',
+									method:'post',
+									valueField:'name',
+									textField:'name',
+									editable:false,
+									multiple:true,
+									panelHeight:'200' ,async:false " 
+			                       label="参与人员:" style="width:100%">	
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议议题:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyyt" class="easyui-textbox" data-options="multiline:true,prompt:'会议议题'" required="true" label="会议议题:" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议内容:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hynr" class="easyui-textbox" data-options="multiline:true,prompt:'会议内容'" required="true" label="会议内容:" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议结论:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyjlun" class="easyui-textbox" data-options="multiline:true,prompt:'会议结论'" required="true" label="会议结论；" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyrq"   class="easyui-datebox"   data-options=" editable:false, prompt:'请选择 日期'"  required="true"   id="hyrq" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savehyjl('#hyjlfm','#hyjldlg')"   style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#hyjldlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+  
+  <div id="hyjllydlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="hyjllyfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>记录人姓名:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input   name="hyjlrxm" readonly="" class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="记录人姓名:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>项目名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input    name="hyxmmc" readonly=" " class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/gzjl/getXm',
+							method:'post',
+							valueField:'xm_name',
+							textField:'xm_name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="项目名称:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>部门名称:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                    <input   name="hybmmc"  class="easyui-combobox"readonly=" " required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getDepart',
+							method:'post',
+							valueField:'d_name',
+							textField:'d_name',
+						    editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="部门名称:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>参与人员:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input   name="hycyry"    class="easyui-combobox" readonly=" "  required="true"
+			                        data-options="
+									url:'/ENOS/wdtx/getUserName',
+									method:'post',
+									valueField:'name',
+									textField:'name',
+									editable:false,
+									multiple:true,
+									panelHeight:'200' ,async:false " 
+			                       label="参与人员:" style="width:100%">	
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议议题:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyyt" class="easyui-textbox" readonly=" "data-options="multiline:true,prompt:'会议议题'" required="true" label="会议议题:" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议内容:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hynr" class="easyui-textbox" readonly=" " data-options="multiline:true,prompt:'会议内容'" required="true" label="会议内容:" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议结论:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyjlun" class="easyui-textbox" readonly=" " data-options="multiline:true,prompt:'会议结论'" required="true" label="会议结论；" style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>会议留言:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyly" class="easyui-textbox" data-options="multiline:true,prompt:'会议留言'" required="true"  style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>留言人姓名:</td>
+	                <td >
+	                  <div style="margin-bottom:10px">
+	                      <input name="hylyrxm" id="hylyrxm" class="easyui-textbox" data-options="prompt:'留言人姓名'" required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	                <td>会议日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="hyrq"   class="easyui-datebox" readonly=" "   data-options=" editable:false, prompt:'请选择 日期'"  required="true"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savehyjl('#hyjllyfm','#hyjllydlg')" id = "savelyhyjl" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#hyjllydlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+  
+</div>

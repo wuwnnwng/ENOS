@@ -1,0 +1,156 @@
+<div th:fragment="shgzjl">
+  <!-- 查询表单 -->
+<!--    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> -->
+<!--             <label for="bmmccx" class=" control-label">部门:</label> -->
+<!-- 		    <input   name="bmmccx" id="bmmccx"  class="easyui-combobox"   -->
+<!--                        data-options=" -->
+<!-- 						url:'/ENOS/wdtx/getDepart', -->
+<!-- 						method:'post', -->
+<!-- 						valueField:'d_name', -->
+<!-- 						textField:'d_name', -->
+<!-- 					    editable:false, -->
+<!-- 						panelHeight:'200' ,async:false "  -->
+<!--                        label="部门名称:" style="width:100%">	  -->
+<!-- 		   <label for="xmmccx"   class=" control-label">项目名称:</label> -->
+<!-- 		   <input name="xmmccx" id="xmmccx"  class="easyui-combobox"   -->
+<!--                       data-options=" -->
+<!-- 					url:'/ENOS/gzjl/getXm', -->
+<!-- 					method:'post', -->
+<!-- 					valueField:'xm_name', -->
+<!-- 					textField:'xm_name', -->
+<!-- 					editable:false, -->
+<!-- 					panelHeight:'200' ,async:false "  -->
+<!--                       label="项目名称:" style="width:100%"> -->
+<!-- 			<label for="jlrxmcx" class=" control-label">姓名:</label> -->
+<!-- 		    <input   name="jlrxmcx"  id="jlrxmcx"  class="easyui-combobox"   -->
+<!--                        data-options=" -->
+<!-- 						url:'/ENOS/wdtx/getUserName', -->
+<!-- 						method:'post', -->
+<!-- 						valueField:'name', -->
+<!-- 						textField:'name', -->
+<!-- 						editable:false, -->
+<!-- 						panelHeight:'200' ,async:false "  -->
+<!--                        label="创建人:" style="width:100%">	  -->
+<!-- 			<label for="gznrcx" class="  control-label">工作内容:</label> -->
+<!-- 			<input name="gznrcx" id="gznrcx" class="easyui-textbox  " data-options="multiline:true,prompt:'请输入内容'"   label="工作内容:" style="width:198px;height:100px"> -->
+<!-- 			<div align="center" class="gzjlcx"> -->
+<!-- 			  <input type="button" value="查询" class="btn btn-primary cxgzjl" />&nbsp;&nbsp;&nbsp;&nbsp;  -->
+<!-- 			  <input type="button" value="重置" class="btn btn-primary gzjlcz"  /> -->
+<!-- 		   </div> -->
+<!--    </div> -->
+<!--   <!--  主体内容--> -->
+<!--   <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 "> -->
+<!--     <table id="gzjl" title="审核工作记录" class="easyui-datagrid" style="width:100%;height:500px" -->
+<!--             url="" toolbar="#gzjltoolbar" pagination="true" singleSelect='false'   collapsible='true' -->
+<!--             fitColumns=" false"  rownumbers="false" striped="true" > -->
+<!--         <thead> -->
+<!--             <tr> -->
+<!--                 <th data-options="field:'ck',checkbox:true"></th> -->
+<!--                 <th  hidden="true" field="gj_id" style="display:none;" width="50"></th> -->
+<!--                 <th field="pjjg" width="100">评价</th> -->
+<!--                 <th field="pjly" width="200">留言</th> -->
+<!--                 <th field="jlrxm" width="100">创建人</th> -->
+<!--                 <th field="gzrq" width="100">日期</th> -->
+<!--                 <th field="gznr" width="500">工作内容</th> -->
+<!--                 <th field="gzwcqk" width="100">完成情况</th> -->
+<!--                 <th field="xmmc" width="300">项目名称</th> -->
+<!--                 <th field="bmmc" width="100">部门名称</th> -->
+<!--                 <th field="psrxm" width="100">审核人</th> -->
+<!--             </tr> -->
+<!--         </thead> -->
+<!--     </table> -->
+<!--   </div> -->
+ 
+<!--     <div id="gzjltoolbar"> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGzjl()">新建 </a> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGzjl()">编辑 </a> -->
+<!-- <!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGzjl()">删除</a> --> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#gzjl','jlrxm','gj_id','/ENOS/gzjl/delete?','/ENOS/gzjl/find?')">删除</a> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#gzjl','#saveGzjl','#gzjldlg','#gzjlfm','查看审核工作记录')" >查看</a> -->
+<!--     </div> -->
+    
+<!--     <div id="gzjldlg" class="easyui-dialog" style="width:650px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'"> -->
+<!--         <form id="gzjlfm" method="post" novalidate style="margin:0;padding:20px 50px"> -->
+<!-- 	          <table class="maintable"> -->
+<!-- 	             <tr> -->
+<!-- 	                <td>创建人:</td> -->
+<!-- 	                <td> -->
+<!-- 	                  <div style="margin-bottom:10px"> -->
+<!-- 	                      <input  id="jlrxm" name="jlrxm" readonly="" class="easyui-combobox" required="true" -->
+<!-- 	                       data-options=" -->
+<!-- 							url:'/ENOS/wdtx/getUserName', -->
+<!-- 							method:'post', -->
+<!-- 							valueField:'name', -->
+<!-- 							textField:'name', -->
+<!-- 							editable:false, -->
+<!-- 							panelHeight:'200' ,async:false "  -->
+<!-- 	                       label="创建人:" style="width:100%"> -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	                <td>项目名称:</td> -->
+<!-- 	                <td> -->
+<!-- 	                  <div style="margin-bottom:10px"> -->
+<!-- 	                      <input  id="xmmc" name="xmmc"  class="easyui-combobox" required="true" -->
+<!-- 	                       data-options=" -->
+<!-- 							url:'/ENOS/gzjl/getXm', -->
+<!-- 							method:'post', -->
+<!-- 							valueField:'xm_name', -->
+<!-- 							textField:'xm_name', -->
+<!-- 							editable:false, -->
+<!-- 							panelHeight:'200' ,async:false "  -->
+<!-- 	                       label="项目名称:" style="width:100%"> -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	             </tr> -->
+<!-- 	             <tr> -->
+<!-- 	                <td>部门名称:</td> -->
+<!-- 	                <td> -->
+<!-- 	                  <div style="margin-bottom:10px"> -->
+<!-- 	                    <input   name="bmmc"  class="easyui-combobox" required="true" -->
+<!-- 	                       data-options=" -->
+<!-- 							url:'/ENOS/wdtx/getDepart', -->
+<!-- 							method:'post', -->
+<!-- 							valueField:'d_name', -->
+<!-- 							textField:'d_name', -->
+<!-- 						    editable:false, -->
+<!-- 							panelHeight:'200' ,async:false "  -->
+<!-- 	                       label="部门名称:" style="width:100%"> -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	                <td>完成情况:</td> -->
+<!-- 	                <td> -->
+<!-- 	                  <div style="margin-bottom:10px"  > -->
+<!-- 	                      <select class="easyui-combobox" name="gzwcqk" required="true" style="width:100%"> -->
+					        <option>一般</option> 
+					        <option selected>良好</option>
+					        <option>优秀</option>
+					        <option>非常棒</option>
+<!-- 					    </select>   -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	             </tr> -->
+<!-- 	             <tr> -->
+<!-- 	                <td>工作内容:</td> -->
+<!-- 	                <td colspan="3"> -->
+<!-- 	                  <div style="margin-bottom:10px"> -->
+<!-- 	                      <input name="gznr" class="easyui-textbox  " data-options="multiline:true,prompt:'请输入内容'" required="true" label="工作内容:" style="width:455px;height:100px"> -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	             </tr> -->
+<!-- 	             <tr> -->
+<!-- 	                <td>日期:</td> -->
+<!-- 	                <td> -->
+<!-- 	                  <div style="margin-bottom:10px"> -->
+<!-- 	                      <input name="gzrq" class="easyui-datebox"   data-options="prompt:'请选择 日期'" required="true" label="日期:" id="gzrq" style="width:100%"> -->
+<!-- 	                  </div> -->
+<!-- 	                </td> -->
+<!-- 	             </tr> -->
+<!-- 	          </table>   -->
+<!--         </form> -->
+<!--     </div> -->
+<!--     <div id="dlg-buttons"> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveGzjl()" id="saveGzjl" style="width:90px">保存</a> -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#gzjldlg').dialog('close')" style="width:90px">取消</a> -->
+<!--     </div> -->
+工作记录审核
+</div>

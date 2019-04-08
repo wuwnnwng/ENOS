@@ -1,0 +1,128 @@
+<div th:fragment="xmps">
+     <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label for="xpxmmccx" class=" control-label">项目名称:</label>
+		    <input name="xpxmmccx" id="xpxmmccx"   class="easyui-combobox"  
+                    data-options="
+					url:'/ENOS/gzjl/getXm',
+					method:'post',
+					valueField:'xm_name',
+					textField:'xm_name',
+					editable:false,
+					panelHeight:'200' ,async:false " 
+                    label="项目名称:" style="width:100%">	
+             <label for="xprcx" class=" control-label">评审人姓名:</label>
+		     <input  id="xprcx" name="xprcx" class="easyui-combobox"  
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="评审人姓名:" style="width:100%">       
+			<label for="xprqcx" class="  control-label">评审日期:</label>
+            <input name="xprqcx"  class="form-control" id="xprqcx"   placeholder="请选择日期"    style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxxmps" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary xmpscz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="xmps" title="项目评审" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#xmpstoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="xp_id" style="display:none;" width="50"></th>
+                <th field="xpxmmc" width="300">项目名称</th>
+                <th field="xpmkmc" width="100">模块名称</th>
+                <th field="xpyj" width="300">评审意见</th>
+                <th field="xpr" width="100">评审人</th>
+                <th field="xprq" width="100">评审日期</th>
+                <th field="xpbz" width="100">备注</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="xmpstoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newxmps()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editxmps()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#xmps','xpr','xp_id','/ENOS/xmps/delete?','/ENOS/xmps/find?')">删除</a>
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="queren('#xmps','xdshzt','xp_id','/ENOS/xmps/qrstatus?','/ENOS/xmps/find?')">确认</a> -->
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#xmps','#savexmps','#xmpsdlg','#xmpsfm','查看项目评审')" >查看</a>
+    </div>
+    <div id="xmpsdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="xmpsfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	              <tr>
+	                <td>评审人:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="xpr" id="xpr"  readonly=" "   required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="评审人:" style="width:100%">	 
+	                  </div>
+	                </td>
+	                <td>项目名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                   <input name="xpxmmc" id="xpxmmc"   class="easyui-combobox"  required="true"
+		                    data-options="
+							url:'/ENOS/gzjl/getXm',
+							method:'post',
+							valueField:'xm_name',
+							textField:'xm_name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+		                    label="项目名称:" style="width:100%">	
+	                  </div>
+	                </td>   
+	             </tr>
+	             <tr>
+	                <td>审核意见:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                      <input name="xpyj" class="easyui-textbox  " data-options="multiline:true,prompt:'请输入审核意见'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+                </tr>
+                <tr>
+	                <td>模块名称:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="xpmkmc" class="easyui-textbox" required="true" data-options="prompt:'请输入模块名称'" style="width:100%;height: 34px">
+	                  </div>
+	                </td>
+	                 <td>备注:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="rqbz"  class="form-control"   placeholder="备注"  required="true"   id="rqbz" style="width:100%">
+	                  </div>
+	                </td>
+                </tr>
+                <tr>
+	               <td>日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="xprq"  class="form-control"   placeholder="请选择 日期"  required="true"   id="xprq" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savexmps()" id="savexmps" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#xmpsdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

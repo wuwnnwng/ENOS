@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/person.png" /> 
+	<title>企业网络办公系统</title>
+	<div th:replace="include_css::include_css" ></div> 
+    <link rel="stylesheet" type="text/css" th:href="@{style/home.css}">
+</head>
+<body> 
+    <div th:replace="head::head"></div>
+    <!--首页  -->
+     <div class="main" id="sy">
+	      <!--我的提醒  -->
+	      <div th:replace="sy/wdtx::wdtx"></div>
+	      <!-- 信息发布 -->
+	      <div th:replace="sy/xxfb::xxfb"></div>  
+     </div>
+    <!--工作管理 -->
+   <div class="main" id="gzgl">
+       <!-- 工作记录  -->
+       <div th:replace="gzgl/gzjl::gzjl"></div> 
+       <!-- 会议记录-->
+       <div th:replace="gzgl/hyjl::hyjl"></div> 
+       <!-- 工作留言-->
+       <div th:replace="gzgl/gzly::gzly"></div>
+        <!-- 上班打卡-->
+       <div th:replace="gzgl/sbdk::sbdk"></div>
+    </div>
+    <!--项目管理  -->
+    <div class="main" id="xmgl">
+      <!-- 项目大事记 -->
+      <div th:replace="xmgl/xmdsj::xmdsj"></div>
+      <!-- 人员情况 -->
+      <div th:replace="xmgl/ryqk::ryqk"></div>
+      <!-- 项目评审 -->
+      <div th:replace="xmgl/xmps::xmps"></div>
+    </div>   
+    <!--综合管理  -->
+    <div class="main" id="zhgl">
+      <!-- 外出管理 -->
+      <div th:replace="zhgl/wcgl::wcgl"></div>
+      <!-- 请假管理-->
+      <div th:replace="zhgl/qjgl::qjgl"></div>
+      <!-- 考勤统计 -->
+      <div th:replace="zhgl/kqtj::kqtj"></div>
+      <!-- 宿舍管理-->
+      <div th:replace="zhgl/ssgl::ssgl"></div> 
+      <!-- 图书管理 -->
+<!--       <div th:replace="zhgl/tsgl::tsgl"></div>  -->
+    </div>   
+    <!--人事管理  -->
+    <div class="main" id="rsgl"> 
+      <!-- 岗位管理-->
+      <div th:replace="rsgl/gwgl::gwgl"></div>  
+      <!-- 职工工资-->
+      <div th:replace="rsgl/zggz::zggz"></div>   
+      <!-- 工作考核-->
+      <div th:replace="rsgl/gzkh::gzkh"></div>  
+      <!-- 员工培训 -->	
+      <div th:replace="rsgl/ygpx::ygpx"></div>   
+    </div>   
+    <!--运维管理  -->
+    <div class="main" id="ywgl">
+       <!-- 客户信息管理-->
+       <div th:replace="ywgl/khxxgl::khxxgl"></div>
+       <div th:replace="ywgl/shgzjl::shgzjl"></div>   
+     </div>   
+    <div th:replace="foot::foot"></div>
+    <div th:replace="include_js::indclude_js"></div>
+    <script type="text/javascript" th:src="@{js/home.js}"></script>
+    <!--表单验证  -->
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrapValidator.min.js}" ></script>
+    <!--我的提醒js  -->
+    <script type="text/javascript" th:src="@{js/wdtx.js}"></script>
+    <!--信息发布js  -->
+    <script type="text/javascript" th:src="@{js/xxfb.js}"></script>
+    
+    <!--工作记录js  -->
+    <script type="text/javascript" th:src="@{js/gzjl.js}"></script>
+    <!--会议记录js  -->
+    <script type="text/javascript" th:src="@{js/hyjl.js}"></script>
+    <!--工作留言js  -->
+    <script type="text/javascript" th:src="@{js/gzly.js}"></script>
+    <!--上班打卡js  -->
+    <script type="text/javascript" th:src="@{js/sbdk.js}"></script>
+    
+    <!--项目大事记js  -->
+    <script type="text/javascript" th:src="@{js/xmdsj.js}"></script>
+     <!--人员情况js  -->
+    <script type="text/javascript" th:src="@{js/ryqk.js}"></script>
+     <!--项目评审js  -->
+    <script type="text/javascript" th:src="@{js/xmps.js}"></script>
+    
+     <!--外出管理js  -->
+    <script type="text/javascript" th:src="@{js/wcgl.js}"></script>
+      <!--请假管理js  -->
+    <script type="text/javascript" th:src="@{js/qjgl.js}"></script>
+    <!--考情统计js  -->
+    <script type="text/javascript" th:src="@{js/kqtj.js}"></script>
+    <!--宿舍管理js  -->
+    <script type="text/javascript" th:src="@{js/ssgl.js}"></script>
+    
+    
+    
+    
+     <!--宿舍管理js  -->
+    <script type="text/javascript" th:src="@{js/khxxgl.js}"></script>
+    
+</body>
+</html>

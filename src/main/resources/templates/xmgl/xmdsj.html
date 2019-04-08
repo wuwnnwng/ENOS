@@ -1,0 +1,237 @@
+<div th:fragment="xmdsj">
+ <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="xdxmmccx" class=" control-label">项目名称:</label>
+		    <input name="xdxmmccx" id="xdxmmccx"  class="easyui-combobox"  
+                    data-options="
+					url:'/ENOS/gzjl/getXm',
+					method:'post',
+					valueField:'xm_name',
+					textField:'xm_name',
+					editable:false,
+					panelHeight:'200' ,async:false " 
+                    label="项目名称:" style="width:100%">	 
+            <label for="xdjlrcx" class=" control-label">记录人:</label>
+		    <input   name="xdjlrcx"  id="xdjlrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="记录人:" style="width:100%">
+            <label for="xdshrcx" class=" control-label">审核人:</label>
+		    <input   name="xdshrcx"  id="xdshrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="审核人:" style="width:100%">
+           	 <label for="xdshztcx" class="  control-label">审核状态:</label>
+             <select class="form-control" name="xdshztcx" id="xdshztcx">
+					        <option>未审核</option>
+					        <option>已审核</option>
+			 </select> 		   
+			<label for="xdrqcx" class="  control-label">记录日期:</label>
+            <input name="xdrqcx" id="xdrqcx" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"   style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxxmdsj" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary xmdsjcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="xmdsj" title="项目大事记" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#xmdsjtoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="xd_id" style="display:none;" width="50"></th>
+                <th field="xdrq" width="100">记录日期</th>
+                <th field="xdjlr" width="100">记录人</th>
+                <th field="xdnr" width="500">内容</th>
+                <th field="xdxmmc" width="300">项目名称</th>
+                <th field="xdstatus" width="100">项目转态</th>
+                <th field="xdshsj" width="100">审核日期</th>
+                <th field="xdshr" width="100">审核人</th>
+                <th field="xdshzt" width="100">审核状态</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="xmdsjtoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newxmdsj()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editxmdsj()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#xmdsj','xdjlr','xd_id','/ENOS/xmdsj/delete?','/ENOS/xmdsj/find?')">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#xmdsj','#saveshxmdsj','#xmdsjshdlg','#xmdsjshfm','查看项目大事记')" >查看</a>
+        <shiro:hasPermission name="all">
+        　　              <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="shxmdsj()">审核 </a>
+        </shiro:hasPermission>
+    </div>
+    <div id="xmdsjdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="xmdsjfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>记录人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="xdjlr" name="xdjlr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="记录人:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>项目名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="xdxmmc" id="xdxmmc"  required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="项目名称:" style="width:100%">	 
+	                  </div>
+	                </td>
+	              </tr>
+	             <tr>
+	                <td>内容:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                    <input name="xdnr" class="easyui-textbox" data-options="multiline:true,prompt:'大事记内容'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>项目情况:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                      <select class="easyui-combobox" name="xdstatus" data-options="panelHeight:'100'" required="true" style="width:100%">
+					        <option>需求分析</option> 
+					        <option selected>开发阶段</option>
+					        <option>测试</option>
+					        <option>上线</option>
+					    </select>  
+	                  </div>
+	                </td>
+	                <td>日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="xdrq"  class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'" required="true"   style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savexmdsj('#xmdsjfm','#xmdsjdlg')"   style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#xmdsjdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+    
+    <div id="xmdsjshdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="xmdsjshfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>记录人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="xdjlr" name="xdjlr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="记录人:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>项目名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="xdxmmc" id="xdxmmc"   readonly=" "required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="项目名称:" style="width:100%">	 
+	                  </div>
+	                </td>
+	              </tr>
+	             <tr>
+	                <td>内容:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                    <input name="xdnr" class="easyui-textbox" readonly=" " data-options="multiline:true,prompt:'大事记内容'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>项目情况:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                      <select class="easyui-combobox"  readonly=" " data-options="panelHeight:'100'" name="xdstatus" required="true" style="width:100%">
+					        <option>需求分析</option> 
+					        <option selected>开发阶段</option>
+					        <option>测试</option>
+					        <option>上线</option>
+					    </select>  
+	                  </div>
+	                </td>
+	                <td>记录日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="xdrq"  class="easyui-datebox"  readonly=" " data-options=" editable:false, prompt:'请选择日期'" required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	              <tr>
+	                <td>审核人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                     <input name="xdshr" id="xdshr" readonly=" " class="easyui-textbox" data-options=" prompt:'审核人'" required="true" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>审核转态:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+                         <select class="easyui-combobox" name="xdshzt" data-options="panelHeight:'70'" required="true" style="width:100%">
+					        <option>已审核</option>
+					        <option>未审核</option>
+					     </select>  	   
+                     </div>
+	                </td>
+	             </tr>
+	              <tr>
+	                <td>审核日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="xdshsj"  class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  required="true"   style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savexmdsj('#xmdsjshfm','#xmdsjshdlg')" id="saveshxmdsj" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#xmdsjshdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

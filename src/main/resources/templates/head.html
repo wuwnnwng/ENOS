@@ -1,0 +1,92 @@
+<div th:fragment="head">
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">页面小时触发下拉效果</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><hl>企业网络办公系统</hl></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav  ">
+        <li class=" dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">首页 <span class="caret"></span></a>
+          <ul class="dropdown-menu " id="sydown">
+            <li id="wdtxli"><a href="#" class="glyphicon glyphicon-comment">我的提醒</a></li>
+            <li id="xxfbli"><a href="#" class="glyphicon glyphicon-envelope">信息发布</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工作管理 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="gzgldown">
+            <li><a id="gzjlli" href="#" class="glyphicon glyphicon-pencil">工作记录</a></li>
+            <li><a id="hyjlli" href="#" class="glyphicon glyphicon-pencil">会议记录</a></li>
+            <li><a id="gzlyli" href="#" class="glyphicon glyphicon-comment">工作留言</a></li>
+            <li><a id="sbdkli" href="#" class="glyphicon glyphicon-pencil">上班打卡</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">项目管理 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="xmgldown">
+            <li><a id="xmdsjli" href="#"  class="glyphicon glyphicon-pencil">项目大事记</a></li>
+            <li><a id="ryqkli" href="#" class="glyphicon glyphicon-user">人员情况</a></li>
+            <li><a id="xmpsli" href="#" class="glyphicon glyphicon-pencil">项目评审</a></li>
+<!--             <li role="separator" class="divider"></li> -->
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">综合管理 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="zhgldown">
+            <li><a id="wcglli" href="#"  class="glyphicon glyphicon-plane">外出管理</a></li>
+            <li><a id="qjglli" href="#" class="glyphicon glyphicon-user">请假管理</a></li>
+            <li><a id="kqtjli" href="#" class="glyphicon glyphicon-list-alt">考情统计</a></li>
+            <li><a id="ssglli" href="#" class="glyphicon glyphicon-home">宿舍管理</a></li>
+<!--             <li><a id="tsglli" href="#" class="glyphicon glyphicon-book">图书管理</a></li> -->
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">人事管理<span class="caret"></span></a>
+          <ul class="dropdown-menu" id="rsgldown">
+            <li><a id="gwglli" href="#"  class="glyphicon glyphicon-repeat">岗位管理</a></li>
+            <li><a id="zggzli" href="#" class="glyphicon glyphicon-yen">职员工资</a></li>
+            <li><a id="gzkqli" href="#" class="glyphicon glyphicon-list-alt">工作考核</a></li>
+            <li><a id="ygpxli" href="#" class="glyphicon glyphicon-fire">员工培训</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">运维管理<span class="caret"></span></a>
+          <ul class="dropdown-menu" id="ywgldown">
+            <li><a id="khxxglli" href="#"  class="glyphicon glyphicon-user">客户信息管理</a></li>
+            <li><a id="shgzjlli" href="#"  class="glyphicon glyphicon-user">审核工作记录</a></li>
+          </ul>
+        </li>
+      </ul>
+<!--       <form class="navbar-form navbar-left"> -->
+<!--         <div class="form-group"> -->
+<!--           <input type="text" class="form-control" placeholder="Search"> -->
+<!--         </div> -->
+<!--         <button type="submit" class="btn btn-default">Submit</button> -->
+<!--       </form> -->
+      <ul class="nav navbar-nav navbar-right">   
+         <li><a href="#" th:text="${session.userInfo.name}" class="dlzh">Link</a></li>
+         <li><a href="/ENOS/logout"  class="glyphicon glyphicon-off">LOGOUT</a></li>
+<!--         <li class="dropdown"> -->
+<!--           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
+<!--           <ul class="dropdown-menu"> -->
+<!--             <li><a href="#">Action</a></li> -->
+<!--             <li><a href="#">Another action</a></li> -->
+<!--             <li><a href="#">Something else here</a></li> -->
+<!--             <li role="separator" class="divider"></li> -->
+<!--             <li><a href="#">Separated link</a></li> -->
+<!--           </ul> -->
+<!--         </li> -->
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div>

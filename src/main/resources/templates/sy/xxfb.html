@@ -1,0 +1,87 @@
+<div th:fragment="xxfb">
+<table id="xxfb" title="信息发布" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#xxfbtoolbar" pagination="true" singleSelect='false'   collapsible='true'
+            fitColumns="true"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="xf_id" style="display:none;" width="50"></th>
+                <th field="ggbt" width="50">标题</th>
+                <th field="ggnr" width="50">内容</th>
+                <th field="fbrq" width="20">日期</th>
+                <th field="ggfbr" width="20">发布人</th>
+                <th field="ggfj" width="70"> 附件</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="xxfbtoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newXxfb()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editXxfb()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyXxfb()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-redo" plain="true" onclick="downXxfbfj()" id="xffjxz">下载</a>
+        <input name="xxfbfield"  class="easyui-textbox" placeholder="请输入查询条件" >
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="searchXxfb()"></a>
+    </div>
+    <div id="xxfbdlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="xxfbfm" method="post" novalidate style="margin:0;padding:20px 50px" enctype="multipart/form-data">
+	          <table class="maintable">
+	              <tr>
+	                <td>发布人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="ggfbr" name="ggfbr"   readonly="" class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="发布人:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>标题:</td>
+	                <td>
+	                 <div style="margin-bottom:10px">
+	                      <input name="ggbt" class="easyui-textbox" data-options=" prompt:'请输入标题'" required="true" label="标题:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>内容:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="ggnr" class="easyui-textbox  " data-options="multiline:true,prompt:'请输入内容'" required="true" label="内容:" style="width:198px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="fbrq" class="form-control"   placeholder="请选择日期"  required="true" label="日期:" id="fbrq" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	              <tr >
+	                <td>附件:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input class="easyui-filebox form-control" name="ggfjsc"
+	                                  data-options="prompt:'请选择文件...', buttonText: '选择文件',
+                                       multiple:false, 
+                                      buttonAlign:'right' "   
+                                       style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveXxfb()" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#xxfbdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+<div th:fragment="qjgl">
+    <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="qjrcx" class=" control-label">请假人:</label>
+		    <input   name="qjrcx"  id="qjrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false "
+                       label="请假人:" style="width:100%">
+			<label for="qjlxcx" class=" control-label">请假类型:</label>
+		    <input name="qjlxcx" id="qjlxcx"  class="easyui-combobox"  
+                    data-options="
+					url:'/ENOS/qjgl/getqjlx',
+					method:'post',
+					valueField:'ql_name',
+					textField:'ql_name',
+					editable:false,
+					panelHeight:'200' ,async:false "
+                    label="请假类型:" style="width:100%">	
+             <label for="qjrbmmccx" class=" control-label">部门名称:</label>
+             <input   name="qjrbmmccx"  id="qjrbmmccx"  class="easyui-combobox" 
+	                       data-options="
+							url:'/ENOS/wdtx/getDepart',
+							method:'post',
+							valueField:'d_name',
+							textField:'d_name',
+						    editable:false,
+							panelHeight:'200' ,async:false "
+	                       label="部门名称:" style="width:100%">        
+           	 <label for="qjshztcx" class="  control-label">审核状态:</label>
+             <select class="form-control" name="qjshztcx" id="qjshztcx">
+					        <option>未审核</option>
+					        <option>已审核</option>
+			 </select> 		   
+			<label for="qjksrqcx" class="  control-label">开始日期:</label>
+            <input name="qjksrqcx"  class="form-control" id="qjksrqcx"   placeholder="请选择日期"    style="width:100%">
+            <label for="qjjsrqcx" class="  control-label">结束日期:</label>
+            <input name="qjjsrqcx"  class="form-control" id="qjjsrqcx"   placeholder="请选择日期"    style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxqjgl" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary qjglcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="qjgl" title="请假管理" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#qjgltoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="qj_id" style="display:none;" width="50"></th>
+                <th field="qjr" width="100">请假人</th>
+                <th field="qjksrq" width="100">请假开始日期</th>
+                <th field="qjjsrq" width="100">请假结束日期</th>
+                <th field="qjsy" width="300">请假事由</th>
+                <th field="qjlx" width="300">请假类型</th>
+                <th field="qjrbmmc" width="100">请假人部门</th>
+                <th field="qjshzt" width="100">审核状态</th>
+                <th field="wcshr" width="100">审核人</th>
+                <th field="qjshrq" width="100">审核日期</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="qjgltoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newqjgl()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editqjgl()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#qjgl','qjr','qj_id','/ENOS/qjgl/delete?','/ENOS/qjgl/find?')">删除</a>
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="queren('#qjgl','qjshzt','qj_id','/ENOS/qjgl/qrstatus?','/ENOS/qjgl/find?')">确认</a> -->
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#qjgl','#saveqjgl','#qjgldlg','#qjglfm','查看请假管理')" >查看</a>
+    </div>
+    <div id="qjgldlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="qjglfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>请假人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="qjr" name="qjr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false "
+	                       label="请假人:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>请假类型:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="qjlx" id="qjlx"  required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/qjgl/getqjlx',
+								method:'post',
+								valueField:'ql_name',
+								textField:'ql_name',
+								editable:false,
+								panelHeight:'200' ,async:false "
+			                    label="请假类型:" style="width:100%">	 
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                 <td>部门名称:</td>
+	                 <td  >
+	                  <div style="margin-bottom:10px">
+	                     <input   name="qjrbmmc"  id="qjrbmmc"  class="easyui-combobox" required="true"
+		                       data-options="
+								url:'/ENOS/wdtx/getDepart',
+								method:'post',
+								valueField:'d_name',
+								textField:'d_name',
+							    editable:false,
+								panelHeight:'200' ,async:false "
+		                       label="部门名称:" style="width:100%">    
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>请假事由:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                    <input name="qjsy" class="easyui-textbox" data-options="multiline:true,prompt:'请假事由'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="qjksrq"  class="form-control"   placeholder="请选择 日期"  required="true"   id="qjksrq" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="qjjsrq"  class="form-control"   placeholder="请选择 日期"  required="true"   id="qjjsrq" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveqjgl()" id="saveqjgl" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#qjgldlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

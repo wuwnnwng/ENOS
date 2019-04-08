@@ -1,0 +1,179 @@
+<div th:fragment="ryqk">
+  <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="rqcxxmcx" class=" control-label">参项人姓名:</label>
+		     <input  id="rqcxxmcx" name="rqcxxmcx" class="easyui-combobox"  
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="参项人姓名:" style="width:100%">
+            <label for="rqxmcx" class=" control-label">项目名称:</label>
+		    <input name="rqxmcx" id="rqxmcx"   class="easyui-combobox"  
+                    data-options="
+					url:'/ENOS/gzjl/getXm',
+					method:'post',
+					valueField:'xm_name',
+					textField:'xm_name',
+					editable:false,
+					panelHeight:'200' ,async:false " 
+                    label="项目名称:" style="width:100%">	
+            <label for="rqbmmccx" class=" control-label">部门名称:</label>
+		     <input   name="rqbmmccx"  id="rqbmmccx" class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getDepart',
+						method:'post',
+						valueField:'d_name',
+						textField:'d_name',
+					    editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="部门名称:" style="width:100%">
+            <label for="rqjslbcx" class="  control-label">技术类别:</label>
+            <select class="form-control" name="xdshztcx" id="rqjslbcx">
+					        <option>开发人员</option> 
+					        <option selected>技术支持</option>
+					        <option>技术总监</option>
+		     </select> 	          
+			<label for="rqksrqcx" class="  control-label">指派日期:</label>
+            <input name="rqksrqcx"  class="form-control" id="rqksrqcx"   placeholder="请选择日期"    style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxryqk" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary ryqkcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="ryqk" title="人员情况" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#ryqktoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="rq_id" style="display:none;" width="50"></th>
+                <th field="rqcxxm" width="100">参项人姓名</th>
+                <th field="rqjslb" width="100">技术类别</th>
+                <th field="rqxm" width="300">所在项目</th>
+                <th field="rqksrq" width="100">开始日期</th>
+                <th field="rqyjcxsj" width="100">预计出项天数</th>
+                <th field="rqbmmc" width="100">部门名称</th>
+                <th field=rqzprxm width="100">指派人姓名</th>
+                <th field="rqbz" width="100">备注</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="ryqktoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newryqk()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editryqk()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#ryqk','rqzprxm','rq_id','/ENOS/ryqk/delete?','/ENOS/ryqk/find?')">删除</a>
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="queren('#ryqk','xdshzt','rq_id','/ENOS/ryqk/qrstatus?','/ENOS/ryqk/find?')">确认</a> -->
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#ryqk','#saveryqk','#ryqkdlg','#ryqkfm','查看人员情况')" >查看</a>
+    </div>
+    <div id="ryqkdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="ryqkfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	              <tr>
+	                <td>指派人姓名:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="rqzprxm" id="rqzprxm"  readonly=" "   required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="项目名称:" style="width:100%">	 
+	                  </div>
+	                </td>
+	                <td>部门名称:</td> 
+	                 <td>
+	                  <div style="margin-bottom:10px">
+	                    <input   name="rqbmmc"  class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getDepart',
+							method:'post',
+							valueField:'d_name',
+							textField:'d_name',
+						    editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="部门名称:" style="width:100%">
+	                  </div>
+	             </tr>
+	             <tr>
+	                <td>参项人姓名:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="rqcxxm" name="rqcxxm"  class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="参项人姓名:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>技术类别:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                      <select class="easyui-combobox" name="rqjslb" required="true" style="width:100%">
+					        <option>开发人员</option> 
+					        <option selected>技术支持</option>
+					        <option>技术总监</option>
+					    </select>  
+	                  </div>
+	                </td>
+	              </tr> 
+	            
+	             <tr>
+	                <td>项目名称:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="rqxm" name="rqxm"  class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/gzjl/getXm',
+							method:'post',
+							valueField:'xm_name',
+							textField:'xm_name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="项目名称:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>预计出项天数:</td>
+	                <td>
+	                   <div style="margin-bottom:10px">
+						<input type="number" class="easyui-textbox " name="rqyjcxsj" min="1" max="100"
+							placeholder="请输入天数"   required="required" style="width:100%">
+				      </div>
+	                </td>
+	              </tr>  
+	              <tr>   
+	                <td>日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="rqksrq"  class="form-control"   placeholder="请选择 日期"  required="true"   id="rqksrq" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>备注:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="rqbz"  class="form-control"   placeholder="备注"  required="true"   id="rqbz" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveryqk()" id="saveryqk" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#ryqkdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

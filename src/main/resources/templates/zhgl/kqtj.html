@@ -1,0 +1,151 @@
+<div th:fragment="kqtj">
+    <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="yearcx" class=" control-label">年份:</label>
+		    <input name="yearcx" id="yearcx"  class="easyui-combobox" style="width:80%">	
+            <label for="monthcx" class=" control-label">月份:</label>
+            <input   name="monthcx"  id="monthcx"  class="easyui-combobox" style="width:80%">        
+			<div align="center" class="kqtjcx">
+			  <input type="button" value="查询" class="btn btn-primary cxkqtj" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary kqtjcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="kqtj" title="考情统计" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#kqtjtoolbar"  pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="dk_id" style="display:none;" width="50"></th>
+                <th field="dkname" width="80">姓名</th>
+                <th field="dkdepart" width="80">部门</th>
+                <th field="rq" width="80">日期</th>
+                <th field="qdsj" width="120">签到时间(时:分:秒) </th>
+                <th field="qtsj" width="120">签退时间(时:分:秒) </th>
+                <th field="xq" width="80">星期</th>
+                <th field="gzsj" width="120">工作时间(时:分:秒)</th>
+                <th field="cdsj" width="120">迟到时间(时:分:秒)</th>
+                <th field="ztsj" width="120">早退时间(时:分:秒)</th>
+                <th field="zlsj" width="120">早来时间(时:分:秒)</th>
+                <th field="wtsj" width="120">晚退时间(时:分:秒)</th>
+                <th field="sbkzt" width="200">上班卡状态</th>
+                <th field="xbkzt" width="200">下班卡状态</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+  <div id="kqtjtoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#kqtj','','#kqtjdlg','#kqtjfm','查看考情统计')" >查看</a>
+  </div>
+    <div id="kqtjdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="kqtjfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>姓名:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                    <input name="dkname" class="easyui-textbox" readonly="" data-options="prompt:'姓名'"    style="width:100%">
+	                  </div>
+	                </td>
+	                <td>部门:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                    <input name="dkdepart" class="easyui-textbox" readonly="" data-options="prompt:'姓名'"    style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>部门名称:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="dkdepart" class="easyui-textbox" readonly="" data-options="prompt:'部门名称'"    style="width:100%">
+	                  </div>
+	                </td>
+	                <td>日期:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="rq" class="easyui-textbox" readonly="" data-options= "prompt:'日期'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>签到时间:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="qdsj" class="easyui-textbox" readonly="" data-options= "prompt:'签到时间'"     style="width:100%">
+	                  </div>
+	                </td>
+	                 <td>签退时间:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="qtsj" class="easyui-textbox" readonly="" data-options= "prompt:'签退时间'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>星期:</td>
+	                <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="xq" class="easyui-textbox" readonly="" data-options= "prompt:'星期'"     style="width:100%">
+	                  </div>
+	                </td>
+	                <td>工作时间:</td>
+	                <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="gzsj" class="easyui-textbox"  readonly=""data-options= "prompt:'工作时间:'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>迟到时间:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="cdsj" class="easyui-textbox" readonly="" data-options= "prompt:'迟到时间:'"     style="width:100%">
+	                  </div>
+	                </td>
+	                 <td>早退时间:</td>
+	                <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="ztsj" class="easyui-textbox" readonly=""  data-options= "prompt:'早退时间:'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>早来时间:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="zlsj" class="easyui-textbox" readonly=""  data-options= "prompt:'早来时间:'"     style="width:100%">
+	                  </div>
+	                </td>
+	                <td>晚退时间:</td>
+	                <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="wtsj" class="easyui-textbox" readonly=""  data-options= "prompt:'晚退时间:'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>上班卡转态:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="sbkzt" class="easyui-textbox" readonly="" data-options= "prompt:'上班卡转态:'"     style="width:100%">
+	                  </div>
+	                </td>
+	                 <td>下班卡转态:</td>
+	                <td  >
+	                  <div style="margin-bottom:10px">
+	                    <input name="xbkzt" class="easyui-textbox" readonly="" data-options= "prompt:'下班卡转态:'"     style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savekqtj()" id="savekqtj" style="width:90px">保存</a> -->
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#kqtjdlg').dialog('close')" style="width:90px">关闭</a>
+    </div>
+  
+</div>

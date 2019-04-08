@@ -1,0 +1,264 @@
+<div th:fragment="wcgl">
+   <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="wcglxmcx" class=" control-label">关联项目:</label>
+		    <input name="wcglxmcx" id="wcglxmcx"  class="easyui-combobox"  
+                    data-options="
+					url:'/ENOS/gzjl/getXm',
+					method:'post',
+					valueField:'xm_name',
+					textField:'xm_name',
+					editable:false,
+					panelHeight:'200' ,async:false " 
+                    label="关联项目:" style="width:100%">	
+             <label for="wcrbmmccx" class=" control-label">部门名称:</label>
+             <input   name="wcrbmmccx"  id="wcrbmmccx"  class="easyui-combobox" 
+	                       data-options="
+							url:'/ENOS/wdtx/getDepart',
+							method:'post',
+							valueField:'d_name',
+							textField:'d_name',
+						    editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="部门名称:" style="width:100%">        
+            <label for="wcrcx" class=" control-label">外出人:</label>
+		    <input   name="wcrcx"  id="wcrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="外出人:" style="width:100%">
+           	 <label for="wcshztcx" class="  control-label">审核状态:</label>
+             <select class="form-control" name="wcshztcx" id="wcshztcx">
+					        <option>未审核</option>
+					        <option>已审核</option>
+			 </select> 		   
+			<label for="wcksrqcx" class="  control-label">开始日期:</label>
+            <input name="wcksrqcx"   id="wcksrqcx"   class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"     style="width:100%">
+            
+            <label for="wcjsrqcx" class="  control-label">结束日期:</label>
+            <input name="wcjsrqcx"   id="wcjsrqcx"   class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"     style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxwcgl" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary wcglcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="wcgl" title="外出管理" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#wcgltoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="wc_id" style="display:none;" width="50"></th>
+                <th field="wcr" width="100">外出人</th>
+                <th field="wcksrq" width="100">外出开始日期</th>
+                <th field="wcjsrq" width="100">外出结束日期</th>
+                <th field="wcsy" width="300">外出事由</th>
+                <th field="wcglxm" width="300">关联项目</th>
+                <th field="wcrbmmc" width="100">外出人部门</th>
+                <th field="wcshzt" width="100">审核状态</th>
+                <th field="wcshr" width="100">审核人</th>
+                <th field="wcshrq" width="100">审核日期</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="wcgltoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newwcgl()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editwcgl()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#wcgl','wcr','wc_id','/ENOS/wcgl/delete?','/ENOS/wcgl/find?')">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#wcgl','#saveshwcgl','#wcglshdlg','#wcglshfm','查看外出管理')" >查看</a>
+        <shiro:hasPermission name="all">
+        　　               <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="shwcgl()">审核 </a>
+        </shiro:hasPermission>
+    </div>
+    
+    <div id="wcgldlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="wcglfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>外出人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="wcr" name="wcr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="外出人:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>关联项目:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="wcglxm" id="wcglxm"  required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="关联项目:" style="width:100%">	 
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                 <td>部门名称:</td>
+	                 <td  >
+	                  <div style="margin-bottom:10px">
+	                     <input   name="wcrbmmc"  id="wcrbmmc"  class="easyui-combobox" required="true"
+		                       data-options="
+								url:'/ENOS/wdtx/getDepart',
+								method:'post',
+								valueField:'d_name',
+								textField:'d_name',
+							    editable:false,
+								panelHeight:'200' ,async:false " 
+		                       label="部门名称:" style="width:100%">    
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>外出事由:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                    <input name="wcsy" class="easyui-textbox" data-options="multiline:true,prompt:'外出事由'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="wcksrq" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"   required="true"    style="width:100%">
+	                  </div>
+	                </td>
+	                <td>结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="wcjsrq"  class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  required="true"   style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savewcgl('#wcglfm','#wcgldlg')"   style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#wcgldlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+    
+     <div id="wcglshdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#shdlg-buttons'">
+        <form id="wcglshfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>外出人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="wcr" name="wcr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="外出人:" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>关联项目:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                       <input name="wcglxm" id="wcglxm"  readonly=" " required="true" class="easyui-combobox"  
+			                    data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								panelHeight:'200' ,async:false " 
+			                    label="关联项目:" style="width:100%">	 
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                 <td>部门名称:</td>
+	                 <td  >
+	                  <div style="margin-bottom:10px">
+	                     <input   name="wcrbmmc"  id="wcrbmmc" readonly=" " class="easyui-combobox" required="true"
+		                       data-options="
+								url:'/ENOS/wdtx/getDepart',
+								method:'post',
+								valueField:'d_name',
+								textField:'d_name',
+							    editable:false,
+								panelHeight:'200' ,async:false " 
+		                       label="部门名称:" style="width:100%">    
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>外出事由:</td>
+	                <td colspan="3">
+	                  <div style="margin-bottom:10px">
+	                    <input name="wcsy" class="easyui-textbox" readonly=" " data-options="multiline:true,prompt:'外出事由'" required="true"   style="width:455px;height:100px">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="wcksrq" class="easyui-datebox"  readonly=" " data-options=" editable:false, prompt:'请选择日期'"   required="true"    style="width:100%">
+	                  </div>
+	                </td>
+	                <td>结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="wcjsrq"  class="easyui-datebox"  readonly=" " data-options=" editable:false, prompt:'请选择日期'"  required="true"   style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	              <tr>
+	                <td>审核人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                     <input name="wcshr" id="wcshr" readonly=" " class="easyui-textbox" data-options=" prompt:'审核人'" required="true" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>审核转态:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+                         <select class="easyui-combobox" name="wcshzt" data-options="panelHeight:'70'" required="true" style="width:100%">
+					        <option>已审核</option>
+					        <option>未审核</option>
+					     </select>  	   
+                     </div>
+	                </td>
+	             </tr>
+	              <tr>
+	                <td>审核日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="wcshrq"  class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  required="true"   style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="shdlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savewcgl('#wcglshfm','#wcglshdlg')" id="saveshwcgl" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#wcglshdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

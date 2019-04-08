@@ -1,0 +1,204 @@
+<div th:fragment="ssgl">
+     <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="sgsqrcx" class=" control-label">申请人:</label>
+		    <input   name="sgsqrcx"  id="sgsqrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false " 
+                       label="申请人:" style="width:100%">
+            <label for="sgjbrcx" class=" control-label"> 经办人:</label>
+		    <input   name="sgjbrcx"  id="sgjbrcx"  class="easyui-combobox"  
+                       data-options="
+						url:'/ENOS/wdtx/getUserName',
+						method:'post',
+						valueField:'name',
+						textField:'name',
+						editable:false,
+						panelHeight:'200' ,async:false "
+                       label=" 经办人:" style="width:100%">          
+		  
+		  	<label for="sgssdzcx" class=" control-label">宿舍地址:</label>
+		    <input name="sgssdzcx"  class="easyui-textbox"   data-options=" prompt:'宿舍地址'"    id="sgssdzcx" style="width:100%">
+		   
+		    <label for="sgssmccx" class=" control-label">宿舍名称:</label>
+		    <input name="sgssmccx"  class="easyui-textbox"   data-options=" prompt:'宿舍名称'"    id="sgssmccx" style="width:100%">
+		    
+		    <label for="sgjbztcx" class="  control-label">当前状态:</label>
+            <select class="form-control" name="sgjbztcx" id="sgjbztcx">
+					        <option>未批准</option>
+					        <option>已批准</option>
+			 </select> 	
+		   
+			<label for="sgksrqcx" class="  control-label">开始日期:</label>
+            <input name="sgksrqcx"   id="sgksrqcx"  class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"    style="width:100%">
+            
+            <label for="sgjsrqcx" class="  control-label">结束日期:</label>
+            <input name="sgjsrqcx"  id="sgjsrqcx" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  style="width:100%">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxssgl" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary ssglcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="ssgl" title="宿舍管理" class="easyui-datagrid" style="width:100%;height:500px"
+            url="" toolbar="#ssgltoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="true"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="sg_id" style="display:none;" width="50"></th>
+                <th field="sgsqr" width="100">申请人</th>
+                <th field="sgksrq" width="100">开始日期</th>
+                <th field="sgjsrq" width="100">结束日期</th>
+                <th field="sgssmc" width="100">宿舍名称</th>
+                <th field="sgssdz" width="200">宿舍地址</th>
+                <th field="sgjbzt" width="100">状态</th>
+                <th field="sgjbr" width="100"> 经办人</th>
+<!--                 <th field="sgbz" width="100">备注</th> -->
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="ssgltoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newssgl()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editssgl()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#ssgl','sgsqr','sg_id','/ENOS/ssgl/delete?','/ENOS/ssgl/find?')">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#ssgl','#saveshssgl','#ssglshdlg','#ssglshfm','查看宿舍管理')" >查看</a>
+        <shiro:hasPermission name="all">
+        　　              <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="shxssgl()">审核 </a>
+        </shiro:hasPermission>
+    </div>
+    <div id="ssgldlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="ssglfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>申请人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="sgsqr" name="sgsqr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="申请人:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>宿舍名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                     <input name="sgssmc"  class="easyui-textbox"   data-options=" prompt:'宿舍名称'"  required="true"  id="sgssmc" style="width:100% ;height: 40px;">
+	                  </div>
+	                </td>
+	                 <td>宿舍地址:</td>
+	                 <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="sgssdz"  class="easyui-textbox"   data-options=" prompt:'宿舍地址'"  required="true"  id="sgssdz" style="width:100%;height: 40px;">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="sgksrq" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"   required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	                <td>结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="sgjsrq" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savessgl('#ssglfm','#ssgldlg')"  style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#ssgldlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+    
+     <div id="ssglshdlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="ssglshfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>申请人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  name="sgsqr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'200' ,async:false " 
+	                       label="申请人:" style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>宿舍名称:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                     <input name="sgssmc"  class="easyui-textbox" readonly=" "   data-options=" prompt:'宿舍名称'"  required="true"    style="width:100% ;height: 40px;">
+	                  </div>
+	                </td>
+	                 <td>宿舍地址:</td>
+	                 <td >
+	                  <div style="margin-bottom:10px">
+	                    <input name="sgssdz"  class="easyui-textbox"  readonly=" "  data-options=" prompt:'宿舍地址'"  required="true"   style="width:100%;height: 40px;">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="sgksrq" class="easyui-datebox" readonly=" "   data-options=" editable:false, prompt:'请选择日期'"   required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	                <td>结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="sgjsrq" class="easyui-datebox"  data-options=" editable:false, prompt:'请选择日期'"  required="true"  style="width:100%">
+	                  </div>
+	                </td>
+	             </tr>
+	              <tr>
+	                <td>经办人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px"  >
+	                     <input name="sgjbr"id="sgjbr"   readonly=" " class="easyui-textbox" data-options=" prompt:'经办人'" required="true" style="width:100%">
+	                  </div>
+	                </td>
+	                <td>审核转态:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+                         <select class="easyui-combobox" name="sgjbzt" data-options="panelHeight:'70'" required="true" style="width:100%">
+					        <option>已批准</option>
+					        <option>未批准</option>
+					     </select>  	   
+                     </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savessgl('#ssglshfm','#ssglshdlg')" id="saveshssgl" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#ssglshdlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

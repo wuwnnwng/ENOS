@@ -1,0 +1,174 @@
+<div th:fragment="khxxgl">
+     <!-- 查询表单 -->
+   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<label for="khnamecx" class=" control-label">客户姓名:</label>
+		    <input   name="khnamecx"  id="khnamecx"  class="easyui-textbox"  
+                       label="客户姓名:" style="width:100%;height: 30px;">
+           
+            <label for="khhzztcx" class="  control-label">当前状态:</label>
+            <select class="form-control" name="khhzztcx" id="khhzztcx">
+					        <option>进行中</option>
+					        <option>已解除</option>
+			 </select>           
+		    
+			<label for="khhzkssqcx" class="  control-label">合作开始日期:</label>
+            <input name="khhzkssqcx"    id="khhzkssqcx" class="easyui-datebox" data-options=" prompt:'请选择 日期'" style="width:100%;height: 30px;">
+            
+            <label for="khhzjsrqcx" class="  control-label">合作结束日期:</label>
+            <input name="khhzjsrqcx"   id="khhzjsrqcx" class="easyui-datebox" data-options=" prompt:'请选择 日期'" style="width:100%;height: 30px;">
+			
+			<div align="center" class="gzjlcx">
+			  <input type="button" value="查询" class="btn btn-primary cxkhxxgl" />&nbsp;&nbsp;&nbsp;&nbsp; 
+			  <input type="button" value="重置" class="btn btn-primary khxxglcz"  />
+		   </div>
+   </div>
+  <!--  主体内容-->
+  <div class="col-xs-10 col-sm-10  col-md-10  col-lg-10 ">
+    <table id="khxxgl" title="客户信息管理" class="easyui-datagrid" style="width:100%;height: 30px;;height:500px"
+            url="" toolbar="#khxxgltoolbar" pagination="true" singleSelect='false'  collapsible='true'  
+            fitColumns="false"  rownumbers="false" striped="true" >
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th  hidden="true" field="kh_id" style="display:none;" width="50"></th>
+                <th field="khcjr" width="100"> 创建人</th>
+                <th field="khname" width="100">客户姓名</th>
+                <th field="khxb" width="80">客户性别</th>
+                <th field="khdwmc" width="200">客户所在单位</th>
+                <th field="khyx" width="200">客户邮箱</th>
+                <th field="khdh" width="100">客户电话</th>
+                <th field="khdz" width="300"> 客户地址</th>
+                <th field="khdjxm" width="300">对接项目</th>
+                <th field="khhzkssq" width="100">合作开始日期</th>
+                <th field="khhzjsrq" width="100">合作结束日期</th>
+                <th field="khhzzt" width="100">合作转态</th>
+                <th field="sgbz" width="100">备注</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+    <div id="khxxgltoolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newkhxxgl()">新建 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editkhxxgl()">编辑 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroy('#khxxgl','khcjr','kh_id','/ENOS/khxxgl/delete?','/ENOS/khxxgl/find?')">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-more" plain="true" onclick="chakan('#khxxgl','#savekhxxgl','#khxxgldlg','#khxxglfm','查看客户信息管理')" >查看</a>
+    </div>
+    <div id="khxxgldlg" class="easyui-dialog" style="width:700px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="khxxglfm" method="post" novalidate style="margin:0;padding:20px 50px">
+	          <table class="maintable">
+	             <tr>
+	                <td>创建人:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input  id="khcjr" name="khcjr" readonly=" "   class="easyui-combobox" required="true"
+	                       data-options="
+							url:'/ENOS/wdtx/getUserName',
+							method:'post',
+							valueField:'name',
+							textField:'name',
+							editable:false,
+							panelHeight:'150' ,async:false " 
+	                       label="创建人:" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>客户姓名:</td> 
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                     <input name="khname"  class="easyui-textbox"   data-options=" prompt:'客户姓名'"  required="true"  id="sgssmc" style="width:100%;height: 30px; ">
+	                  </div>
+	                </td>
+	                 <td>客户性别:</td>
+	                 <td >
+	                  <div style="margin-bottom:10px">
+	                     <select class="easyui-combobox" name="khxb" id="khxb" data-options=" prompt:'客户性别',panelHeight:'60',	editable:false" required="true" style="width:100%;height: 30px;">
+					        <option>男</option>
+					        <option>女</option>
+			            </select> 
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>客户所在单位:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khdwmc"  class="easyui-textbox"   data-options=" prompt:'客户所在单位' "  required="true"   id="khdwmc" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	                <td>客户地址:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khdz"  class="easyui-textbox"   data-options=" prompt:'客户地址' "  required="true"   id="khdz" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>客户电话:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khdh"  class="easyui-textbox"    data-options=" prompt:'客户电话' "  required="true"   id="khdh" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	                <td>客户邮箱:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input type="email" name="khyx"  class="easyui-validatebox" validType="email"   data-options=" prompt:'客户邮箱'"  required="true"   id="khyx" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>对接项目:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+                          <input name="khdjxm" id="khdjxm"  class="easyui-combobox"  required="true" 
+			                     data-options="
+								url:'/ENOS/gzjl/getXm',
+								method:'post',
+								valueField:'xm_name',
+								textField:'xm_name',
+								editable:false,
+								prompt:'对接项目',
+								panelHeight:'150' ,async:false " 
+			                    label="项目名称:" style="width:100%;height: 30px;">	  
+		              </div>
+	                </td>
+	                <td>合作转态:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                     <select class="easyui-combobox" name="khhzzt" id="khhzzt" required="true" data-options=" prompt:'合作转态',panelHeight:'60' ,	editable:false  " style="width:100%;height: 30px;">
+					        <option>进行中</option>
+					        <option>已解除</option>
+			             </select>
+	                  </div>
+	                </td>
+	             </tr>
+	             <tr>
+	                <td>合作开始日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khhzkssq"  class="easyui-datebox"   data-options="required:true , prompt:'请选择 日期'"    id="khhzkssq" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	                <td>合作结束日期:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khhzjsrq"    class="easyui-datebox"   data-options="  prompt:'请选择 日期'"   id="khhzjsrq" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	             </tr>
+	                <td>备注:</td>
+	                <td>
+	                  <div style="margin-bottom:10px">
+	                      <input name="khbz"  class="form-control"   placeholder="备注"   id="khbz" style="width:100%;height: 30px;">
+	                  </div>
+	                </td>
+	             </tr>
+	          </table>  
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="savekhxxgl()" id="savekhxxgl" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#khxxgldlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>

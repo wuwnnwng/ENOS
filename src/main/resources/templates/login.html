@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:http="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/person.png" />
+	<title>登录</title>
+	<div th:replace="include_css::include_css"></div>
+	<link rel="stylesheet" type="text/css" th:href="@{style/login.css}">
+<!--     <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}" ></script> -->
+<!-- 	<script type="text/javascript" th:src="@{/js/vue.js}"></script> -->
+<!-- 	<script type="text/javascript" th:src="@{/js/vue-resource.js}"></script> -->
+<!-- 	<script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script> -->
+</head>
+<body>
+<!--   <div class="login"></div> -->
+	<div class="login" id="login">
+		<form action="/ENOS/login" method="post">
+			<table>
+				<tbody>
+					<tr align="center">
+						<td colspan="2"><h1>登录</h1></td>
+					</tr>
+					<tr>
+						<td class="glyphicon glyphicon-user"><label>用户名：</label></td>
+						<td><input type="text" name="name"  
+							class="form-control  input-sm " placeholder="请输入用 户"
+							required="required"></td>
+					</tr>
+					<br />
+					<tr>
+						<td class="glyphicon glyphicon-lock"><label>密码：</label></td>
+						<td><input type="password" class="form-control  input-sm"
+							name="password" placeholder="请输密码" required="required">
+						</td>
+						<td><label id="checkma"></label></td>
+					</tr>
+					<tr align="center">
+						<td><input type="checkbox" name="rememberMe" />记住我</td>
+						<td align="right"><a id="wjmm" class="easyui-linkbutton">忘记密码</a></td>
+					</tr>
+					<tr align="center">
+						<td colspan="2"><input type="submit" value="登录"
+							class="btn btn-primary" />&nbsp;&nbsp; <a href="#"
+							class="btn btn-primary register">注册</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<div id="xgmm" class="easyui-window" title="修改密码"
+			data-options="iconCls:'icon-save',closed:true,modal:true,minimizable:false,tools:'#tool'"
+			style="width: 500px; height: 270px; padding: 10px;">
+			<form class="form-horizontal form-group"  id="yzxgmmform">
+				<div class="form-group">
+					<label for="username" class="col-sm-3 control-label">用户名:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="username"
+							placeholder="请输入用户名" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="userpassword" class="col-sm-3 control-label">密码:</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" name="userpassword"
+							placeholder="请输密码" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirmassword" class="col-sm-3 control-label">确认密码:</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" name="confirmassword"
+							placeholder="确认密码" required="required">
+					</div>
+				</div>
+<!-- 				<div class="form-group"> -->
+<!--                     <div class="col-lg-9 col-lg-offset-3"> -->
+<!--                         <button type="submit" class="btn btn-primary" id="xgmmsubmit" >提交</button> -->
+<!--                     </div> -->
+<!--                 </div> -->
+			 <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+				<a  class="easyui-linkbutton" id="xgmmsubmit" data-options="iconCls:'icon-ok'" style="width: 80px">提交</a> 
+<!-- 			    <a class="easyui-linkbutton quxiaoxiugai" data-options="iconCls:'icon-cancel'"  style="width: 80px">取消</a> -->
+			</div>
+		 </form>	
+	</div>
+	<div id="register" class="easyui-window" title="注册"
+			data-options="iconCls:'icon-save',closed:true,modal:true,minimizable:false,tools:'#tool'"
+			style="width: 550px; height: 550px; padding: 10px;">
+			<form class="form-horizontal form-group" action="/ENOS/register" method="post" id="zcregister">
+				<div class="form-group">
+					<label for="zcname" class="col-sm-3 control-label">用户名:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control " name="zcname" 
+							placeholder="请输入用户名"  data-options="required:true" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="zcusername" class="col-sm-3 control-label">英文名:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control  " name="zcusername"
+							placeholder="请输入英文名" data-options="required:true" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="zcpassword" class="col-sm-3 control-label">密码:</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control  " name="zcpassword" maxlength="10"
+							placeholder="请输入密码" data-options="required:true" required="required" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="zcconfirmassword" class="col-sm-3 control-label" maxlength="10">确认密码:</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control  " name="zcconfirmassword"
+							placeholder="确认密码" data-options="required:true" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="phone" class="col-sm-3 control-label" maxlength="11">电话:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control  " name="phone"
+							placeholder="请输入电话" data-options="required:true,validType:'phoneNum'" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="col-sm-3 control-label">邮箱:</label>
+					<div class="col-sm-9">
+						<input type="email" class="form-control" name="email"
+							placeholder="请输入邮箱" data-options="required:true,validType:'email'" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="age" class="col-sm-3 control-label">年龄:</label>
+					<div class="col-sm-9">
+						<input type="number" class="form-control " name="age" min="1" max="100"
+							placeholder="请输入年龄" data-options="required:true" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="sex" class="col-sm-3 control-label">性别:</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="sex">
+					        <option>男</option>
+					        <option>女</option>
+					    </select>  
+					</div>
+				</div>
+			 	<div class="form-group">  
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button type="submit" class="btn btn-primary" id="zcsubmit">提交</button>
+                    </div>
+                </div>
+		 </form>	
+	</div>
+	<span id="error" th:if="${msg!=null}" th:text="${msg}"></span>
+</div>
+	<div th:replace="include_js::indclude_js"></div>
+	<script type="text/javascript" th:src="@{js/login.js}"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+@charset "UTF-8";
+body {
+	background: url(/ENOS/img/login.jpg) no-repeat;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background-size: cover;
+}
+.login {
+    margin-left: 579px;
+    margin-top: 202px;
+/*     position: relative; */
+/*     margin-left: 591px; */
+/*     margin-top: 244px; */
+}
+/* #login { */
+/*     position: absolute; */
+/* } */
+#wjmm{
+	color: #f9160b;
+}
+table{
+	border-collapse:separate;  
+    border-spacing:10px;
+}
+tr td:first-child{
+    color: white;
+}
+.form-group input {
+   width: 90%;
+}
+.form-group select {
+   width: 90%;
+}
+.form-group label {
+   color: #779fc5;
+}
+#error{
+	color: #e68915;
+    font-size: 17px;
+}
+#checkma {
+	color: #e68915;
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

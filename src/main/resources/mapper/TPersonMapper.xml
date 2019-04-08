@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwn.mybatis.dao.TPersonMapper">
+  <resultMap id="BaseResultMap" type="com.wwn.mybatis.entity.TPerson">
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="page" jdbcType="INTEGER" property="page" />
+  </resultMap>
+  <insert id="insert" parameterType="com.wwn.mybatis.entity.TPerson">
+    insert into t_person (pid, pname, page
+      )
+    values (#{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{page,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select pid, pname, page
+    from t_person
+  </select>
+</mapper>
